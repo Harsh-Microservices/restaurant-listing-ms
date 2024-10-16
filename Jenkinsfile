@@ -26,15 +26,16 @@ pipeline {
     }
 
     stage('SonarQube Analysis') {
-  steps {
-    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://18.171.61.159:9000/ -Dsonar.login=c01f42587a2948760042546172895ac20712c3c2  }
-}
+  	  steps {
+        sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://18.171.61.159:9000/ -Dsonar.login=c01f42587a2948760042546172895ac20712c3c2  
+      }
+    }
 
 
-   stage('Check code coverage') {
-            steps {
-                script {
-                    def token = "c01f42587a2948760042546172895ac20712c3c2"
+    stage('Check code coverage') {
+       steps {
+          	script {
+            		def token = "c01f42587a2948760042546172895ac20712c3c2"
                     def sonarQubeUrl = "http://18.171.61.159:9000/api"
                     def componentKey = "com.ibm:restaurentlisting"
                     def coverageThreshold = 60.0
@@ -54,7 +55,7 @@ pipeline {
                     if (coverage < coverageThreshold) {
                         error "Coverage is below the threshold of ${coverageThreshold}%. Aborting the pipeline."
                     }
-                }
+               }
             }
         } 
 
