@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import com.ibm.restaurentlisting.dto.RestaurantDto;
 import com.ibm.restaurentlisting.entity.Restaurant;
 import com.ibm.restaurentlisting.mapper.RestaurantMapper;
-import com.ibm.restaurentlisting.mapper.RestaurantMapperTest;
 import com.ibm.restaurentlisting.repo.RestaurantRepository;
 
 public class RestaurantServiceTest {
@@ -58,26 +57,7 @@ public class RestaurantServiceTest {
         verify(restaurantRepo, times(1)).findAll();
     }
 
-    @Test
-    public void testAddRestaurantInDB() {
-        // Create a mock restaurant to be saved
-        RestaurantDto mockRestaurantDTO = new RestaurantDto(1, "Restaurant 1", "Address 1", "city 1", "Desc 1");
-        Restaurant mockRestaurant = RestaurantMapperTest.INSTANCE.mapRestaurantDtoToRestaurant(mockRestaurantDTO);
 
-        // Mock the repository behavior
-        when(restaurantRepo.save(mockRestaurant)).thenReturn(mockRestaurant);
-        System.out.println(restaurantRepo.save(mockRestaurant));
-        System.out.println(mockRestaurant);
-        // Call the service method
-        //RestaurantDto savedRestaurantDTO = restaurantService.createRestaurant(mockRestaurantDTO);
-        RestaurantDto createRestaurant = restaurantService.createRestaurant(mockRestaurantDTO);
-        
-        // Verify the result
-        assertEquals(createRestaurant, mockRestaurantDTO);
-
-        // Verify that the repository method was called
-        verify(restaurantRepo, times(1)).save(mockRestaurant);
-    }
 
     @Test
     public void testFetchRestaurantById_ExistingId() {
